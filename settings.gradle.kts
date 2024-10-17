@@ -1,4 +1,10 @@
+import java.io.FileInputStream
+import java.util.Properties
+
+gradle.startParameter.excludedTaskNames.addAll(listOf(":build-logic:convention:testClasses"))
+
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -16,7 +22,15 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        mavenLocal()
     }
+}
+
+fun getLocalProperty(key: String): String {
+    val prop = Properties().apply {
+        load(FileInputStream(File(rootProject.projectDir, "local.properties")))
+    }
+    return prop.getProperty(key)
 }
 
 rootProject.name = "StarterApp"
