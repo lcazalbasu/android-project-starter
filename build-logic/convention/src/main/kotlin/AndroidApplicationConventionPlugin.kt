@@ -16,8 +16,8 @@
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
+import com.lcazalbasu.apps.buildlogic.AppVersions
 import com.lcazalbasu.apps.buildlogic.configureKotlinAndroid
-import com.lcazalbasu.apps.buildlogic.configureKotlinJvm
 import com.lcazalbasu.apps.buildlogic.configurePrintApksTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -33,12 +33,10 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
 
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = 34
+                defaultConfig.targetSdk = AppVersions.TARGET_SDK
                 @Suppress("UnstableApiUsage")
                 testOptions.animationsDisabled = true
             }
-
-            configureKotlinJvm()
 
             extensions.configure<ApplicationAndroidComponentsExtension> {
                 configurePrintApksTask(this)

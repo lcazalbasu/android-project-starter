@@ -14,6 +14,7 @@
  *   limitations under the License.
  */
 
+import com.android.build.gradle.api.AndroidBasePlugin
 import com.lcazalbasu.apps.buildlogic.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -22,14 +23,18 @@ import org.gradle.kotlin.dsl.dependencies
 class AndroidHiltConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            with(pluginManager) {
-                apply("org.jetbrains.kotlin.kapt")
-                apply("com.google.dagger.hilt.android")
+            pluginManager.apply("com.google.devtools.ksp")
+            dependencies {
+                add("ksp", libs.findLibrary("hilt.compiler").get())
+                add("implementation", libs.findLibrary("hilt.core").get())
             }
 
-            dependencies {
-                "implementation"(libs.findLibrary("hilt.android").get())
-                "kapt"(libs.findLibrary("hilt.compiler").get())
+            /** Add support for Android modules, based on [AndroidBasePlugin] */
+            pluginManager.withPlugin("com.android.base") {
+                pluginManager.apply("dagger.hilt.android.plugin")
+                dependencies {
+                    add("implementation", libs.findLibrary("hilt.android").get())
+                }
             }
         }
     }

@@ -1,8 +1,9 @@
+import com.lcazalbasu.apps.buildlogic.AppBuildType
+import com.lcazalbasu.apps.buildlogic.AppVersions
+
 plugins {
     alias(libs.plugins.defined.android.application)
     alias(libs.plugins.defined.android.application.compose)
-    alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -10,8 +11,8 @@ android {
 
     defaultConfig {
         applicationId = "com.lcazalbasu.starterapp"
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = AppVersions.VERSION_CODE
+        versionName = AppVersions.VERSION_NAME
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -20,16 +21,17 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix = AppBuildType.DEBUG.applicationIdSuffix
+        }
         release {
             isMinifyEnabled = false
+            applicationIdSuffix = AppBuildType.RELEASE.applicationIdSuffix
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
-    }
-    buildFeatures {
-        compose = true
     }
     packaging {
         resources {
@@ -45,7 +47,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)

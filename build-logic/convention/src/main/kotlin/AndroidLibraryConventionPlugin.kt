@@ -16,6 +16,7 @@
 
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.LibraryExtension
+import com.lcazalbasu.apps.buildlogic.AppVersions
 import com.lcazalbasu.apps.buildlogic.configureKotlinAndroid
 import com.lcazalbasu.apps.buildlogic.configureKotlinJvm
 import com.lcazalbasu.apps.buildlogic.configurePrintApksTask
@@ -39,7 +40,8 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = 34
+                defaultConfig.targetSdk = AppVersions.TARGET_SDK
+                defaultConfig.testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                 testOptions.animationsDisabled = true
 
                 // TODO we don't have flavors yet
@@ -57,6 +59,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 disableUnnecessaryAndroidTests(target)
             }
             dependencies {
+                add("androidTestImplementation", kotlin("test"))
                 add("testImplementation", kotlin("test"))
 
                 add("implementation", libs.findLibrary("androidx.tracing.ktx").get())

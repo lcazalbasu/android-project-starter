@@ -14,21 +14,13 @@
  *   limitations under the License.
  */
 
-import com.android.build.gradle.LibraryExtension
-import com.lcazalbasu.apps.buildlogic.configureAndroidCompose
-import org.gradle.api.Plugin
-import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.getByType
+package com.lcazalbasu.apps.buildlogic
 
-class AndroidLibraryComposeConventionPlugin : Plugin<Project> {
-    override fun apply(target: Project) {
-        with(target) {
-            apply(plugin = "com.android.library")
-            apply(plugin = "org.jetbrains.kotlin.plugin.compose")
+object AppVersions {
+    const val MIN_SDK = 21
+    const val COMPILE_SDK = 34
+    const val TARGET_SDK = 34
 
-            val extension = extensions.getByType<LibraryExtension>()
-            configureAndroidCompose(extension)
-        }
-    }
+    const val VERSION_CODE = 1
+    const val VERSION_NAME = "1.0"
 }
