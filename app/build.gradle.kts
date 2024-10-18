@@ -1,4 +1,5 @@
 import com.lcazalbasu.apps.buildlogic.AppBuildType
+import com.lcazalbasu.apps.buildlogic.AppFeatures
 import com.lcazalbasu.apps.buildlogic.AppVersions
 
 plugins {
@@ -18,6 +19,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField("boolean", "ENABLE_FEATURE_X", AppFeatures.enableFeatureX.toString())
     }
 
     buildTypes {
@@ -33,6 +36,11 @@ android {
             )
         }
     }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"

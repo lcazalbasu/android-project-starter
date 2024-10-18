@@ -17,9 +17,3 @@ plugins {
 apply {
     from("${project.rootDir}/spotless.gradle")
 }
-
-val buildFeatures by extra {
-    mutableMapOf<String, Boolean>(
-        "enableSomeFeature" to false,       // Enable the [feature name] feature
-    )
-}
