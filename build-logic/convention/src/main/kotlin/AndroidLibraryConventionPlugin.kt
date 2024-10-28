@@ -18,7 +18,6 @@ import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.LibraryExtension
 import com.lcazalbasu.apps.buildlogic.AppVersions
 import com.lcazalbasu.apps.buildlogic.configureKotlinAndroid
-import com.lcazalbasu.apps.buildlogic.configureKotlinJvm
 import com.lcazalbasu.apps.buildlogic.configurePrintApksTask
 import com.lcazalbasu.apps.buildlogic.disableUnnecessaryAndroidTests
 import com.lcazalbasu.apps.buildlogic.libs
@@ -35,8 +34,6 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 apply("com.android.library")
                 apply("org.jetbrains.kotlin.android")
             }
-
-            configureKotlinJvm()
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
